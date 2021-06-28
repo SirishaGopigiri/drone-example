@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golangapp-deploy
+  namespace: test
+  labels:
+    app: golang
+spec:
+  selector:
+    matchLabels:
+      app: golang
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: golang
+    spec:
+      containers:
+      - name: golangapp
+        image: quay.io/sirishagopigiri/golang-app:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: golangapp-service
+  namespace: test
+  labels:
+    app: golang
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    name: golangapp
+  selector:
+    app: golang
+  type: ClusterIP
