@@ -63,7 +63,7 @@ func TestServeHTTPNewAPI(t *testing.T) {
         if resp.StatusCode != 200 {
                 t.Fatalf("Received non-200 response: %d\n", resp.StatusCode)
         }
-	expected := `{"message":"New api added to the application"}`
+	expected := `{"message":"New api added to the application !!"}`
         actual, err := ioutil.ReadAll(resp.Body)
         if err != nil {
                 t.Fatal(err)
